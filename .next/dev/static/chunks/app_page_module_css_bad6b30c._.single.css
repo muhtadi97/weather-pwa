@@ -1,0 +1,187 @@
+/* [project]/app/page.module.css [app-client] (css) */
+.page-module__E0kJGG__pageContainer {
+  flex-direction: column;
+  gap: 2rem;
+  animation: .8s ease-out page-module__E0kJGG__fadeIn;
+  display: flex;
+}
+
+.page-module__E0kJGG__statusBar {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75rem 1rem;
+  display: flex;
+}
+
+.page-module__E0kJGG__networkStatus {
+  border-radius: 20px;
+  padding: .25rem .75rem;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.page-module__E0kJGG__networkStatus.page-module__E0kJGG__online {
+  color: #10b981;
+  background: #10b98133;
+}
+
+.page-module__E0kJGG__networkStatus.page-module__E0kJGG__offline {
+  color: #ef4444;
+  background: #ef444433;
+}
+
+.page-module__E0kJGG__lastUpdate {
+  color: #ffffffe6;
+  font-size: .875rem;
+}
+
+.page-module__E0kJGG__contentWrapper {
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+}
+
+.page-module__E0kJGG__controlsSection {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  position: relative;
+}
+
+.page-module__E0kJGG__controlButtons {
+  gap: 1rem;
+  display: flex;
+}
+
+.page-module__E0kJGG__refreshButton {
+  color: #fff;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  padding: .75rem 1.5rem;
+  font-weight: 600;
+}
+
+.page-module__E0kJGG__refreshButton:hover:not(:disabled) {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.page-module__E0kJGG__refreshButton:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.page-module__E0kJGG__unitToggle {
+  color: #fff;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  padding: .75rem 1.5rem;
+  font-weight: 600;
+}
+
+.page-module__E0kJGG__unitToggle:hover {
+  background: #fff3;
+}
+
+.page-module__E0kJGG__mainContent {
+  z-index: 1;
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+  position: relative;
+}
+
+.page-module__E0kJGG__loadingContainer {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  display: flex;
+}
+
+.page-module__E0kJGG__loadingContainer p {
+  font-size: 1.1rem;
+}
+
+.page-module__E0kJGG__forecastSection {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  padding: 2rem;
+}
+
+.page-module__E0kJGG__sectionTitle {
+  color: #fff;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.page-module__E0kJGG__errorContainer {
+  text-align: center;
+  border-radius: var(--radius);
+  color: #fff;
+  background: #ef44441a;
+  border: 1px solid #ef44444d;
+  padding: 3rem 2rem;
+}
+
+.page-module__E0kJGG__errorContainer h3 {
+  color: #ef4444;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.page-module__E0kJGG__notificationSection {
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .page-module__E0kJGG__controlsSection {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-module__E0kJGG__controlButtons {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .page-module__E0kJGG__forecastSection {
+    padding: 1.5rem;
+  }
+}
+
+/*# sourceMappingURL=app_page_module_css_bad6b30c._.single.css.map*/

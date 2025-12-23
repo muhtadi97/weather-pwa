@@ -1,0 +1,102 @@
+/* [project]/app/layout.module.css [app-client] (css) */
+.layout-module__CUj6aG__container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.layout-module__CUj6aG__header {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  z-index: 100;
+  background: #0f172af2;
+  border-bottom: 1px solid #ffffff1a;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.layout-module__CUj6aG__logo {
+  align-items: center;
+  gap: .75rem;
+  display: flex;
+}
+
+.layout-module__CUj6aG__logoIcon {
+  color: #3b82f6;
+  width: 32px;
+  height: 32px;
+}
+
+.layout-module__CUj6aG__logo h1 {
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.layout-module__CUj6aG__offlineStatus {
+  opacity: 0;
+  transition: var(--transition);
+  background: #ef4444;
+  border-radius: 20px;
+  padding: .5rem 1rem;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.layout-module__CUj6aG__offlineStatus.layout-module__CUj6aG__show {
+  opacity: 1;
+}
+
+.layout-module__CUj6aG__main {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.layout-module__CUj6aG__footer {
+  text-align: center;
+  color: var(--gray-light);
+  background: #0f172af2;
+  border-top: 1px solid #ffffff1a;
+  padding: 1.5rem 2rem;
+  font-size: .875rem;
+}
+
+.layout-module__CUj6aG__installPrompt {
+  border-radius: var(--radius);
+  background: #3b82f633;
+  border: 1px solid #3b82f64d;
+  margin-top: .5rem;
+  padding: .75rem;
+  animation: 2s infinite layout-module__CUj6aG__pulse;
+}
+
+@keyframes layout-module__CUj6aG__pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .7;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout-module__CUj6aG__header, .layout-module__CUj6aG__main, .layout-module__CUj6aG__footer {
+    padding: 1rem;
+  }
+}
+
+/*# sourceMappingURL=app_layout_module_css_bad6b30c._.single.css.map*/

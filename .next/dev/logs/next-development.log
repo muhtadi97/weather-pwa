@@ -1,0 +1,9 @@
+[00:00:01.549] Server  LOG     ✓ Ready in 1006ms
+[00:00:02.452] Browser LOG     ServiceWorker registration successful
+[00:00:07.203] Browser LOG     ServiceWorker registration successful
+[00:00:15.471] Browser LOG     ServiceWorker registration successful
+[00:01:02.421] Server  LOG     ✓ Compiled in 19ms
+[00:01:08.083] Browser LOG     ServiceWorker registration successful
+[00:02:02.669] Server  LOG     ✓ Compiled in 203ms
+[00:02:32.082] Server  LOG     ✓ Compiled in 92ms
+[00:02:37.473] Browser LOG     ServiceWorker registration successful
