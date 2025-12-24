@@ -36,9 +36,10 @@
 }
 
 .layout-module__CUj6aG__logo h1 {
-  background: linear-gradient(90deg, #3b82f6, #10b981);
   -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
   -webkit-background-clip: text;
+  background-clip: text;
   font-size: 1.5rem;
   font-weight: 700;
 }

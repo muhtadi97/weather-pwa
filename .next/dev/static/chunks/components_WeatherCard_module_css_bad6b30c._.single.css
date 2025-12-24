@@ -28,9 +28,10 @@
 }
 
 .WeatherCard-module__XewneW__cityName {
-  background: linear-gradient(90deg, #3b82f6, #10b981);
   -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
   -webkit-background-clip: text;
+  background-clip: text;
   margin-bottom: .5rem;
   font-size: 2rem;
   font-weight: 800;
@@ -46,9 +47,10 @@
 }
 
 .WeatherCard-module__XewneW__currentTemp {
-  background: linear-gradient(90deg, #fff, #e2e8f0);
   -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #fff, #e2e8f0);
   -webkit-background-clip: text;
+  background-clip: text;
   margin-bottom: .5rem;
   font-size: 3.5rem;
   font-weight: 800;

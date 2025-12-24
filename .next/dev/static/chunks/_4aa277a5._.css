@@ -1,0 +1,912 @@
+/* [project]/components/WeatherCard.module.css [app-client] (css) */
+.WeatherCard-module__XewneW__weatherCard {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition);
+  z-index: 10;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  padding: 2rem;
+  position: relative;
+}
+
+.WeatherCard-module__XewneW__weatherCard:hover {
+  box-shadow: var(--shadow-lg), 0 20px 25px -5px #0003;
+  transform: translateY(-5px);
+}
+
+.WeatherCard-module__XewneW__weatherHeader {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.WeatherCard-module__XewneW__cityName {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-bottom: .5rem;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.WeatherCard-module__XewneW__date {
+  color: #fffc;
+  font-size: .95rem;
+}
+
+.WeatherCard-module__XewneW__temperatureContainer {
+  text-align: right;
+}
+
+.WeatherCard-module__XewneW__currentTemp {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #fff, #e2e8f0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-bottom: .5rem;
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.WeatherCard-module__XewneW__tempUnit {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.WeatherCard-module__XewneW__feelsLike {
+  color: #fffc;
+  font-size: .9rem;
+}
+
+.WeatherCard-module__XewneW__weatherBody {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.WeatherCard-module__XewneW__weatherIcon {
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.WeatherCard-module__XewneW__weatherIcon img {
+  filter: drop-shadow(0 4px 6px #0000001a);
+  width: 120px;
+  height: 120px;
+}
+
+.WeatherCard-module__XewneW__weatherDescription {
+  text-transform: capitalize;
+  margin-top: .5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.WeatherCard-module__XewneW__weatherDetails {
+  flex: 2;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  min-width: 300px;
+  display: grid;
+}
+
+.WeatherCard-module__XewneW__detailItem {
+  background: #ffffff0d;
+  border: 1px solid #ffffff1a;
+  border-radius: 8px;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75rem 1rem;
+  display: flex;
+}
+
+.WeatherCard-module__XewneW__detailLabel {
+  color: #ffffffb3;
+  font-size: .875rem;
+}
+
+.WeatherCard-module__XewneW__detailValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.WeatherCard-module__XewneW__sunTimes {
+  border-top: 1px solid #ffffff1a;
+  justify-content: space-around;
+  padding-top: 1.5rem;
+  display: flex;
+}
+
+.WeatherCard-module__XewneW__sunTime {
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  display: flex;
+}
+
+.WeatherCard-module__XewneW__sunIcon {
+  font-size: 1.5rem;
+}
+
+.WeatherCard-module__XewneW__sunLabel {
+  color: #ffffffb3;
+  font-size: .875rem;
+}
+
+.WeatherCard-module__XewneW__sunValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .WeatherCard-module__XewneW__weatherHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .WeatherCard-module__XewneW__temperatureContainer {
+    text-align: left;
+  }
+
+  .WeatherCard-module__XewneW__currentTemp {
+    font-size: 2.5rem;
+  }
+
+  .WeatherCard-module__XewneW__weatherBody {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .WeatherCard-module__XewneW__weatherDetails {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* [project]/components/ForecastList.module.css [app-client] (css) */
+.ForecastList-module__BGJpcG__forecastList {
+  z-index: 10;
+  flex-direction: column;
+  gap: .75rem;
+  display: flex;
+}
+
+.ForecastList-module__BGJpcG__forecastItem {
+  transition: var(--transition);
+  background: #ffffff0d;
+  border: 1px solid #ffffff1a;
+  border-radius: 12px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  display: flex;
+}
+
+.ForecastList-module__BGJpcG__forecastItem:hover {
+  background: #ffffff1a;
+  transform: translateX(5px);
+}
+
+.ForecastList-module__BGJpcG__forecastDate {
+  flex-direction: column;
+  min-width: 120px;
+  display: flex;
+}
+
+.ForecastList-module__BGJpcG__weekday {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.ForecastList-module__BGJpcG__date {
+  color: #ffffffb3;
+  font-size: .875rem;
+}
+
+.ForecastList-module__BGJpcG__forecastIcon {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem;
+  display: flex;
+}
+
+.ForecastList-module__BGJpcG__forecastIcon img {
+  filter: drop-shadow(0 2px 4px #0003);
+  width: 40px;
+  height: 40px;
+}
+
+.ForecastList-module__BGJpcG__weatherText {
+  color: #ffffffe6;
+  max-width: 150px;
+  font-size: .875rem;
+}
+
+.ForecastList-module__BGJpcG__forecastTemps {
+  text-align: right;
+  min-width: 100px;
+}
+
+.ForecastList-module__BGJpcG__tempRange {
+  justify-content: flex-end;
+  align-items: center;
+  gap: .25rem;
+  display: flex;
+}
+
+.ForecastList-module__BGJpcG__tempMax {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.ForecastList-module__BGJpcG__tempSeparator {
+  color: #ffffff80;
+}
+
+.ForecastList-module__BGJpcG__tempMin {
+  color: #ffffffb3;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .ForecastList-module__BGJpcG__forecastItem {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .ForecastList-module__BGJpcG__forecastDate {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ForecastList-module__BGJpcG__forecastIcon {
+    justify-content: flex-start;
+  }
+
+  .ForecastList-module__BGJpcG__forecastTemps {
+    text-align: left;
+  }
+
+  .ForecastList-module__BGJpcG__tempRange {
+    justify-content: flex-start;
+  }
+}
+
+/* [project]/components/LocationSelector.module.css [app-client] (css) */
+.LocationSelector-module__ZwERTW__locationSelector {
+  z-index: 1000;
+  flex: 1;
+  max-width: 400px;
+  position: relative;
+}
+
+.LocationSelector-module__ZwERTW__selectorButton {
+  border-radius: var(--radius);
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  transition: var(--transition);
+  text-align: left;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.LocationSelector-module__ZwERTW__selectorButton:hover:not(:disabled) {
+  background: #ffffff26;
+  border-color: #ffffff4d;
+}
+
+.LocationSelector-module__ZwERTW__selectorButton:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.LocationSelector-module__ZwERTW__buttonContent {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.LocationSelector-module__ZwERTW__locationIcon {
+  margin-right: .75rem;
+  font-size: 1.25rem;
+}
+
+.LocationSelector-module__ZwERTW__selectedCity {
+  text-align: left;
+  flex: 1;
+}
+
+.LocationSelector-module__ZwERTW__arrow {
+  margin-left: .5rem;
+  transition: transform .3s;
+}
+
+.LocationSelector-module__ZwERTW__arrow.LocationSelector-module__ZwERTW__open {
+  transform: rotate(180deg);
+}
+
+.LocationSelector-module__ZwERTW__dropdown {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  z-index: 2000;
+  max-height: 300px;
+  box-shadow: var(--shadow-lg);
+  background: #0f172af2;
+  border: 1px solid #fff3;
+  padding: .5rem;
+  position: absolute;
+  top: calc(100% + .5rem);
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+}
+
+.LocationSelector-module__ZwERTW__dropdownItem {
+  color: #ffffffe6;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  transition: var(--transition);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75rem 1rem;
+  display: flex;
+}
+
+.LocationSelector-module__ZwERTW__dropdownItem:hover {
+  background: #ffffff1a;
+}
+
+.LocationSelector-module__ZwERTW__dropdownItem.LocationSelector-module__ZwERTW__active {
+  color: #3b82f6;
+  background: #3b82f633;
+}
+
+.LocationSelector-module__ZwERTW__cityName {
+  font-weight: 600;
+}
+
+.LocationSelector-module__ZwERTW__cityCoordinates {
+  color: #fff9;
+  font-size: .75rem;
+}
+
+@media (max-width: 768px) {
+  .LocationSelector-module__ZwERTW__locationSelector {
+    max-width: 100%;
+  }
+
+  .LocationSelector-module__ZwERTW__dropdown {
+    border-radius: var(--radius) var(--radius) 0 0;
+    z-index: 3000;
+    max-height: 50vh;
+    position: fixed;
+    inset: auto 0 0;
+  }
+}
+
+/* [project]/components/NotificationManager.module.css [app-client] (css) */
+.NotificationManager-module__wxcMZa__notificationManager {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  padding: 1.5rem;
+}
+
+.NotificationManager-module__wxcMZa__title {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.NotificationManager-module__wxcMZa__permissionSection {
+  border-bottom: 1px solid #ffffff1a;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.NotificationManager-module__wxcMZa__permissionStatus {
+  background: #ffffff0d;
+  border-radius: 8px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: .75rem;
+  display: flex;
+}
+
+.NotificationManager-module__wxcMZa__statusLabel {
+  color: #fffc;
+  font-size: .875rem;
+}
+
+.NotificationManager-module__wxcMZa__statusValue {
+  border-radius: 20px;
+  padding: .25rem .75rem;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.NotificationManager-module__wxcMZa__statusValue.NotificationManager-module__wxcMZa__granted {
+  color: #10b981;
+  background: #10b98133;
+}
+
+.NotificationManager-module__wxcMZa__statusValue.NotificationManager-module__wxcMZa__denied {
+  color: #ef4444;
+  background: #ef444433;
+}
+
+.NotificationManager-module__wxcMZa__statusValue.NotificationManager-module__wxcMZa__default {
+  color: #f59e0b;
+  background: #f59e0b33;
+}
+
+.NotificationManager-module__wxcMZa__permissionButton {
+  color: #fff;
+  border-radius: var(--radius);
+  cursor: pointer;
+  width: 100%;
+  transition: var(--transition);
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  padding: .75rem 1.5rem;
+  font-weight: 600;
+}
+
+.NotificationManager-module__wxcMZa__permissionButton:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.NotificationManager-module__wxcMZa__settingsSection {
+  flex-direction: column;
+  gap: 1.25rem;
+  display: flex;
+}
+
+.NotificationManager-module__wxcMZa__settingItem {
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.NotificationManager-module__wxcMZa__switch {
+  flex-shrink: 0;
+  width: 50px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+}
+
+.NotificationManager-module__wxcMZa__switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.NotificationManager-module__wxcMZa__slider {
+  cursor: pointer;
+  transition: var(--transition);
+  background-color: #fff3;
+  border-radius: 24px;
+  position: absolute;
+  inset: 0;
+}
+
+.NotificationManager-module__wxcMZa__slider:before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  transition: var(--transition);
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+}
+
+input:checked + .NotificationManager-module__wxcMZa__slider {
+  background-color: #3b82f6;
+}
+
+input:checked + .NotificationManager-module__wxcMZa__slider:before {
+  transform: translateX(26px);
+}
+
+input:disabled + .NotificationManager-module__wxcMZa__slider {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.NotificationManager-module__wxcMZa__settingLabel {
+  color: #ffffffe6;
+  font-size: .95rem;
+}
+
+.NotificationManager-module__wxcMZa__thresholdLabel {
+  color: #ffffffe6;
+  margin-bottom: .5rem;
+  font-size: .95rem;
+  display: block;
+}
+
+.NotificationManager-module__wxcMZa__thresholdControl {
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  display: flex;
+}
+
+.NotificationManager-module__wxcMZa__thresholdSlider {
+  appearance: none;
+  background: #fff3;
+  border-radius: 3px;
+  outline: none;
+  flex: 1;
+  height: 6px;
+}
+
+.NotificationManager-module__wxcMZa__thresholdSlider::-webkit-slider-thumb {
+  appearance: none;
+  cursor: pointer;
+  background: #3b82f6;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.NotificationManager-module__wxcMZa__thresholdSlider::-moz-range-thumb {
+  cursor: pointer;
+  background: #3b82f6;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.NotificationManager-module__wxcMZa__thresholdValue {
+  text-align: center;
+  min-width: 50px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.NotificationManager-module__wxcMZa__testButton {
+  color: #fff;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  margin-top: 1rem;
+  padding: .75rem 1.5rem;
+  font-weight: 600;
+}
+
+.NotificationManager-module__wxcMZa__testButton:hover:not(:disabled) {
+  background: #ffffff26;
+}
+
+.NotificationManager-module__wxcMZa__testButton:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.NotificationManager-module__wxcMZa__deniedMessage {
+  text-align: center;
+  background: #ef44441a;
+  border: 1px solid #ef44444d;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.NotificationManager-module__wxcMZa__deniedMessage p {
+  color: #ffffffe6;
+  font-size: .875rem;
+  line-height: 1.5;
+}
+
+/* [project]/app/page.module.css [app-client] (css) */
+.page-module__E0kJGG__pageContainer {
+  flex-direction: column;
+  gap: 2rem;
+  animation: .8s ease-out page-module__E0kJGG__fadeIn;
+  display: flex;
+}
+
+.page-module__E0kJGG__statusBar {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75rem 1rem;
+  display: flex;
+}
+
+.page-module__E0kJGG__networkStatus {
+  border-radius: 20px;
+  padding: .25rem .75rem;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.page-module__E0kJGG__networkStatus.page-module__E0kJGG__online {
+  color: #10b981;
+  background: #10b98133;
+}
+
+.page-module__E0kJGG__networkStatus.page-module__E0kJGG__offline {
+  color: #ef4444;
+  background: #ef444433;
+}
+
+.page-module__E0kJGG__lastUpdate {
+  color: #ffffffe6;
+  font-size: .875rem;
+}
+
+.page-module__E0kJGG__contentWrapper {
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+}
+
+.page-module__E0kJGG__controlsSection {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  position: relative;
+}
+
+.page-module__E0kJGG__controlButtons {
+  gap: 1rem;
+  display: flex;
+}
+
+.page-module__E0kJGG__refreshButton {
+  color: #fff;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  padding: .75rem 1.5rem;
+  font-weight: 600;
+}
+
+.page-module__E0kJGG__refreshButton:hover:not(:disabled) {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.page-module__E0kJGG__refreshButton:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.page-module__E0kJGG__unitToggle {
+  color: #fff;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  padding: .75rem 1.5rem;
+  font-weight: 600;
+}
+
+.page-module__E0kJGG__unitToggle:hover {
+  background: #fff3;
+}
+
+.page-module__E0kJGG__mainContent {
+  z-index: 1;
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+  position: relative;
+}
+
+.page-module__E0kJGG__loadingContainer {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  display: flex;
+}
+
+.page-module__E0kJGG__loadingContainer p {
+  font-size: 1.1rem;
+}
+
+.page-module__E0kJGG__forecastSection {
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  padding: 2rem;
+}
+
+.page-module__E0kJGG__sectionTitle {
+  color: #fff;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.page-module__E0kJGG__errorContainer {
+  text-align: center;
+  border-radius: var(--radius);
+  color: #fff;
+  background: #ef44441a;
+  border: 1px solid #ef44444d;
+  padding: 3rem 2rem;
+}
+
+.page-module__E0kJGG__errorContainer h3 {
+  color: #ef4444;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.page-module__E0kJGG__notificationSection {
+  margin-top: 1rem;
+}
+
+.page-module__E0kJGG__installSection {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .page-module__E0kJGG__controlsSection {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-module__E0kJGG__controlButtons {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .page-module__E0kJGG__forecastSection {
+    padding: 1.5rem;
+  }
+}
+
+/* [project]/components/InstallButton.module.css [app-client] (css) */
+.InstallButton-module__Vpwkba__installButton {
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  border-radius: 12px;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all .3s;
+  display: flex;
+  box-shadow: 0 4px 12px #10b9814d;
+}
+
+.InstallButton-module__Vpwkba__installButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px #10b98166;
+}
+
+.InstallButton-module__Vpwkba__installButton:active {
+  transform: translateY(0);
+}
+
+.InstallButton-module__Vpwkba__installedStatus {
+  color: #10b981;
+  background: #10b9811a;
+  border: 1px solid #10b981;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-weight: 600;
+}
+
+.InstallButton-module__Vpwkba__iosInstructions {
+  color: #fff;
+  background: #3b82f61a;
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 15px;
+}
+
+.InstallButton-module__Vpwkba__iosInstructions h4 {
+  color: #3b82f6;
+  margin-bottom: 10px;
+}
+
+.InstallButton-module__Vpwkba__iosInstructions ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.InstallButton-module__Vpwkba__iosInstructions li {
+  margin-bottom: 5px;
+  font-size: .9rem;
+}
+
+.InstallButton-module__Vpwkba__shareIcon {
+  color: #fff;
+  background: #3b82f6;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.InstallButton-module__Vpwkba__waiting {
+  color: #f59e0b;
+  background: #f59e0b1a;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: .9rem;
+}
+
+/*# sourceMappingURL=_4aa277a5._.css.map*/

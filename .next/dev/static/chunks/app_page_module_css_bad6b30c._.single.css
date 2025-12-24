@@ -141,9 +141,10 @@
 
 .page-module__E0kJGG__sectionTitle {
   color: #fff;
-  background: linear-gradient(90deg, #3b82f6, #10b981);
   -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
   -webkit-background-clip: text;
+  background-clip: text;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   font-weight: 700;
@@ -166,6 +167,11 @@
 
 .page-module__E0kJGG__notificationSection {
   margin-top: 1rem;
+}
+
+.page-module__E0kJGG__installSection {
+  text-align: center;
+  margin-top: 1.5rem;
 }
 
 @media (max-width: 768px) {
