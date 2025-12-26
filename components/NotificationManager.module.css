@@ -1,97 +1,310 @@
 .notificationManager {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 2rem;
   color: white;
+  box-shadow: 
+    var(--shadow-xl),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Gradient Border Effect */
+.notificationManager::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.4),
+    rgba(16, 185, 129, 0.4),
+    rgba(139, 92, 246, 0.4)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.notificationManager:hover::before {
+  opacity: 1;
+}
+
+.notificationManager:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    var(--shadow-2xl),
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(59, 130, 246, 0.15);
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   color: white;
   text-align: center;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+/* Title Underline Animation */
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-light), var(--secondary-light));
+  border-radius: 2px;
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    width: 60px;
+    opacity: 1;
+  }
+  50% {
+    width: 80px;
+    opacity: 0.8;
+  }
+}
+
+/* Notification Icon */
+.title::before {
+  content: '🔔';
+  font-size: 1.8rem;
+  margin-right: 0.75rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  animation: bellRing 3s ease-in-out infinite;
+}
+
+@keyframes bellRing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  2%, 6% {
+    transform: rotate(10deg);
+  }
+  4%, 8% {
+    transform: rotate(-10deg);
+  }
 }
 
 .permissionSection {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
 }
 
 .permissionStatus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-}
-
-.statusLabel {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.statusValue {
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-}
-
-.statusValue.granted {
-  background: rgba(16, 185, 129, 0.2);
-  color: #10b981;
-}
-
-.statusValue.denied {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-}
-
-.statusValue.default {
-  background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
-}
-
-.permissionButton {
-  width: 100%;
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  color: white;
-  border: none;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(10px);
   border-radius: var(--radius);
-  font-weight: 600;
-  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition: var(--transition);
 }
 
-.permissionButton:hover {
+.permissionStatus:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-md);
+}
+
+.statusLabel {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusLabel::before {
+  content: '📱';
+  font-size: 1.1rem;
+}
+
+.statusValue {
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Status Value Pulse Effects */
+.statusValue::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0.1;
+  border-radius: inherit;
+}
+
+.statusValue.granted {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.statusValue.denied {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.statusValue.default {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+  }
+}
+
+/* Modern Gradient Button */
+.permissionButton {
+  width: 100%;
+  padding: 1rem 1.75rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-dark) 50%,
+    var(--accent) 100%
+  );
+  background-size: 200% 100%;
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 20px rgba(59, 130, 246, 0.3);
+  animation: buttonShine 3s ease-in-out infinite;
+}
+
+@keyframes buttonShine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.permissionButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    var(--shadow-xl),
+    0 0 30px rgba(59, 130, 246, 0.4);
+}
+
+.permissionButton:active {
+  transform: translateY(-1px);
+}
+
+/* Ripple Effect */
+.permissionButton::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.permissionButton:active::after {
+  width: 300px;
+  height: 300px;
 }
 
 .settingsSection {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .settingItem {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
 }
 
+.settingItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+/* Modern Switch Design */
 .switch {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 24px;
+  width: 56px;
+  height: 28px;
   flex-shrink: 0;
 }
 
@@ -108,122 +321,299 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
   transition: var(--transition);
-  border-radius: 24px;
+  border-radius: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px;
-  width: 16px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 2px;
+  background: linear-gradient(135deg, white, var(--gray-light));
   transition: var(--transition);
   border-radius: 50%;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
 }
 
 input:checked + .slider {
-  background-color: #3b82f6;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-color: rgba(59, 130, 246, 0.5);
 }
 
 input:checked + .slider:before {
-  transform: translateX(26px);
+  transform: translateX(28px);
+  background: white;
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
 input:disabled + .slider {
   opacity: 0.5;
   cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .settingLabel {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+  flex: 1;
 }
 
+.settingLabel::before {
+  content: '⚙️';
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Threshold Control */
 .thresholdLabel {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
   display: block;
+}
+
+.thresholdLabel::before {
+  content: '🌡️';
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
 }
 
 .thresholdControl {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
   width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Modern Range Slider */
 .thresholdSlider {
   flex: 1;
-  height: 6px;
+  height: 8px;
   -webkit-appearance: none;
   appearance: none;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-light) 0%,
+    var(--secondary-light) 100%
+  );
+  border-radius: 4px;
   outline: none;
+  cursor: pointer;
 }
 
 .thresholdSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: #3b82f6;
+  background: white;
+  border: 3px solid var(--primary);
   cursor: pointer;
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 10px rgba(59, 130, 246, 0.5);
+  transition: all var(--transition);
+}
+
+.thresholdSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 
+    var(--shadow-xl),
+    0 0 15px rgba(59, 130, 246, 0.7);
 }
 
 .thresholdSlider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: #3b82f6;
+  background: white;
+  border: 3px solid var(--primary);
   cursor: pointer;
-  border: none;
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 10px rgba(59, 130, 246, 0.5);
 }
 
 .thresholdValue {
-  min-width: 50px;
+  min-width: 60px;
   text-align: center;
-  font-weight: 600;
-  font-size: 1.125rem;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: white;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
 }
 
+/* Test Button */
 .testButton {
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
+  margin-top: 1.5rem;
+  padding: 1rem 1.75rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
   transition: var(--transition);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.testButton::before {
+  content: '🚀';
+  margin-right: 0.75rem;
 }
 
 .testButton:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 20px rgba(59, 130, 246, 0.2);
 }
 
 .testButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.05);
 }
 
+/* Denied Message */
 .deniedMessage {
-  padding: 1rem;
-  background: rgba(239, 68, 68, 0.1);
-  border-radius: 8px;
+  padding: 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.15) 0%,
+    rgba(239, 68, 68, 0.08) 100%
+  );
+  border-radius: var(--radius);
   border: 1px solid rgba(239, 68, 68, 0.3);
   text-align: center;
+  backdrop-filter: blur(10px);
+  animation: shake 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
 .deniedMessage p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.875rem;
-  line-height: 1.5;
+  color: white;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.deniedMessage::before {
+  content: '⚠️';
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .notificationManager {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .permissionStatus {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .statusValue {
+    align-self: flex-start;
+  }
+
+  .settingItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .switch {
+    align-self: flex-start;
+  }
+
+  .thresholdControl {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .thresholdSlider {
+    width: 100%;
+  }
+
+  .thresholdValue {
+    align-self: center;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .title::after,
+  .title::before,
+  .permissionButton,
+  .statusValue.granted,
+  .thresholdSlider::-webkit-slider-thumb,
+  .testButton,
+  .deniedMessage {
+    animation: none;
+    transition: none;
+  }
+  
+  .notificationManager,
+  .permissionStatus,
+  .settingItem {
+    transform: none;
+  }
 }
