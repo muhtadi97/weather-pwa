@@ -8,6 +8,7 @@ import NotificationManager from '@/components/NotificationManager';
 import { getCurrentWeather, getForecast } from '@/lib/weatherAPI';
 import { CITIES, CACHE_KEYS } from '@/utils/constants';
 import styles from './page.module.css';
+import InstallButton from '@/components/InstallButton';
 
 export default function Home() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -135,6 +136,10 @@ export default function Home() {
             loading={loading}
           />
           
+          <div className={styles.installSection}>
+            <InstallButton />
+          </div>
+
           <div className={styles.controlButtons}>
             <button 
               className={styles.refreshButton}

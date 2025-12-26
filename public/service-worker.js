@@ -14,10 +14,24 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Cache opened for Weather PWA');
+        console.log('Installing PWA...');
         return cache.addAll(urlsToCache);
       })
-      .then(() => self.skipWaiting())
+      .then(() => {
+        console.log('✅ PWA ready for install');
+        // Trigger install prompt
+        self.skipWaiting();
+        
+        // Send message to client
+        self.clients.matchAll().then(clients => {
+          clients.forEach(client => {
+            client.postMessage({
+              type: 'PWA_READY',
+              message: 'Aplikasi siap diinstall'
+            });
+          });
+        });
+      })
   );
 });
 
