@@ -1269,11 +1269,25 @@ __turbopack_context__.v({
 "[project]/components/InstallButton.module.css [app-client] (css module)", ((__turbopack_context__) => {
 
 __turbopack_context__.v({
+  "checkIcon": "InstallButton-module__Vpwkba__checkIcon",
+  "helpButton": "InstallButton-module__Vpwkba__helpButton",
   "installButton": "InstallButton-module__Vpwkba__installButton",
+  "installContainer": "InstallButton-module__Vpwkba__installContainer",
+  "installIcon": "InstallButton-module__Vpwkba__installIcon",
   "installedStatus": "InstallButton-module__Vpwkba__installedStatus",
+  "iosHeader": "InstallButton-module__Vpwkba__iosHeader",
+  "iosIcon": "InstallButton-module__Vpwkba__iosIcon",
   "iosInstructions": "InstallButton-module__Vpwkba__iosInstructions",
+  "iosSteps": "InstallButton-module__Vpwkba__iosSteps",
+  "manualInstructions": "InstallButton-module__Vpwkba__manualInstructions",
+  "pulse": "InstallButton-module__Vpwkba__pulse",
+  "retryButton": "InstallButton-module__Vpwkba__retryButton",
   "shareIcon": "InstallButton-module__Vpwkba__shareIcon",
-  "waiting": "InstallButton-module__Vpwkba__waiting",
+  "spin": "InstallButton-module__Vpwkba__spin",
+  "spinner": "InstallButton-module__Vpwkba__spinner",
+  "step": "InstallButton-module__Vpwkba__step",
+  "stepNumber": "InstallButton-module__Vpwkba__stepNumber",
+  "waitingContainer": "InstallButton-module__Vpwkba__waitingContainer",
 });
 }),
 "[project]/components/InstallButton.js [app-client] (ecmascript)", ((__turbopack_context__) => {
@@ -1288,6 +1302,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/components/InstallButton.module.css [app-client] (css module)");
 ;
 var _s = __turbopack_context__.k.signature();
+// components/InstallButton.js - VERSION FIXED
 'use client';
 ;
 ;
@@ -1297,142 +1312,353 @@ function InstallButton() {
     const [isInstallable, setIsInstallable] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isIOS, setIsIOS] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isStandalone, setIsStandalone] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [showInstructions, setShowInstructions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "InstallButton.useEffect": ()=>{
             // Cek jika sudah diinstall
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                setIsStandalone(true);
-                return;
-            }
+            const checkStandalone = {
+                "InstallButton.useEffect.checkStandalone": ()=>{
+                    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || document.referrer.includes('android-app://');
+                    setIsStandalone(isStandalone);
+                    if (isStandalone) {
+                        console.log('✅ PWA already installed');
+                        return true;
+                    }
+                    return false;
+                }
+            }["InstallButton.useEffect.checkStandalone"];
+            if (checkStandalone()) return;
             // Detect iOS
-            const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            const isIos = /iphone|ipad|ipod/.test(userAgent);
             setIsIOS(isIos);
-            // Listen for install prompt
-            window.addEventListener('beforeinstallprompt', {
-                "InstallButton.useEffect": (e)=>{
+            // Listen for install prompt - FIX: Simpan event
+            const handleBeforeInstallPrompt = {
+                "InstallButton.useEffect.handleBeforeInstallPrompt": (e)=>{
+                    console.log('🎯 beforeinstallprompt event fired!');
+                    // Prevent Chrome 67 and earlier from automatically showing the prompt
                     e.preventDefault();
+                    // Stash the event so it can be triggered later
                     setDeferredPrompt(e);
                     setIsInstallable(true);
-                    console.log('✅ PWA install prompt available');
+                    // Auto-show prompt after 3 seconds (optional)
+                    setTimeout({
+                        "InstallButton.useEffect.handleBeforeInstallPrompt": ()=>{
+                            if (deferredPrompt) {
+                                console.log('Auto-showing install prompt...');
+                                handleInstallClick();
+                            }
+                        }
+                    }["InstallButton.useEffect.handleBeforeInstallPrompt"], 3000);
                 }
-            }["InstallButton.useEffect"]);
+            }["InstallButton.useEffect.handleBeforeInstallPrompt"];
             // Check if already installed
-            window.addEventListener('appinstalled', {
-                "InstallButton.useEffect": ()=>{
+            const handleAppInstalled = {
+                "InstallButton.useEffect.handleAppInstalled": ()=>{
                     console.log('✅ PWA installed successfully');
                     setIsInstallable(false);
                     setIsStandalone(true);
+                    setDeferredPrompt(null);
                 }
-            }["InstallButton.useEffect"]);
+            }["InstallButton.useEffect.handleAppInstalled"];
+            window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+            window.addEventListener('appinstalled', handleAppInstalled);
+            // Initial check
+            checkStandalone();
             return ({
                 "InstallButton.useEffect": ()=>{
-                    window.removeEventListener('beforeinstallprompt', {
-                        "InstallButton.useEffect": ()=>{}
-                    }["InstallButton.useEffect"]);
-                    window.removeEventListener('appinstalled', {
-                        "InstallButton.useEffect": ()=>{}
-                    }["InstallButton.useEffect"]);
+                    window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+                    window.removeEventListener('appinstalled', handleAppInstalled);
                 }
             })["InstallButton.useEffect"];
         }
     }["InstallButton.useEffect"], []);
     const handleInstallClick = async ()=>{
-        if (!deferredPrompt) return;
+        if (!deferredPrompt) {
+            console.log('No deferred prompt available');
+            setShowInstructions(true);
+            return;
+        }
+        console.log('🎯 Showing install prompt...');
+        // Show the install prompt
         deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response: ${outcome}`);
+        // Wait for the user to respond to the prompt
+        const choiceResult = await deferredPrompt.userChoice;
+        console.log(`User response: ${choiceResult.outcome}`);
+        if (choiceResult.outcome === 'accepted') {
+            console.log('✅ User accepted the install prompt');
+        } else {
+            console.log('❌ User dismissed the install prompt');
+        }
+        // Clear the deferredPrompt
         setDeferredPrompt(null);
         setIsInstallable(false);
     };
+    const handleManualInstructions = ()=>{
+        setShowInstructions(!showInstructions);
+    };
+    // Jika sudah terinstall
     if (isStandalone) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].installedStatus,
-            children: "✅ Aplikasi sudah terinstall"
-        }, void 0, false, {
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].checkIcon,
+                    children: "✅"
+                }, void 0, false, {
+                    fileName: "[project]/components/InstallButton.js",
+                    lineNumber: 114,
+                    columnNumber: 9
+                }, this),
+                "Aplikasi sudah terinstall"
+            ]
+        }, void 0, true, {
             fileName: "[project]/components/InstallButton.js",
-            lineNumber: 58,
+            lineNumber: 113,
             columnNumber: 7
         }, this);
     }
+    // Jika iOS, tampilkan instruksi khusus
     if (isIOS) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].iosInstructions,
             children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                    children: "📲 Install di iOS:"
-                }, void 0, false, {
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].iosHeader,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].iosIcon,
+                            children: "📱"
+                        }, void 0, false, {
+                            fileName: "[project]/components/InstallButton.js",
+                            lineNumber: 125,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                            children: "Install di iPhone/iPad"
+                        }, void 0, false, {
+                            fileName: "[project]/components/InstallButton.js",
+                            lineNumber: 126,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/components/InstallButton.js",
-                    lineNumber: 67,
+                    lineNumber: 124,
                     columnNumber: 9
                 }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ol", {
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].iosSteps,
                     children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].step,
                             children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].stepNumber,
+                                    children: "1"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/InstallButton.js",
+                                    lineNumber: 130,
+                                    columnNumber: 13
+                                }, this),
                                 "Tap ",
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].shareIcon,
                                     children: "⎋"
                                 }, void 0, false, {
                                     fileName: "[project]/components/InstallButton.js",
-                                    lineNumber: 69,
-                                    columnNumber: 19
+                                    lineNumber: 131,
+                                    columnNumber: 17
                                 }, this),
                                 " Share button"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/InstallButton.js",
-                            lineNumber: 69,
+                            lineNumber: 129,
                             columnNumber: 11
                         }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                            children: 'Scroll down → "Add to Home Screen"'
-                        }, void 0, false, {
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].step,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].stepNumber,
+                                    children: "2"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/InstallButton.js",
+                                    lineNumber: 134,
+                                    columnNumber: 13
+                                }, this),
+                                'Scroll → "Add to Home Screen"'
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/components/InstallButton.js",
-                            lineNumber: 70,
+                            lineNumber: 133,
                             columnNumber: 11
                         }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                            children: 'Tap "Add"'
-                        }, void 0, false, {
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].step,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].stepNumber,
+                                    children: "3"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/InstallButton.js",
+                                    lineNumber: 138,
+                                    columnNumber: 13
+                                }, this),
+                                'Tap "Add" → Selesai!'
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/components/InstallButton.js",
-                            lineNumber: 71,
+                            lineNumber: 137,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/InstallButton.js",
-                    lineNumber: 68,
+                    lineNumber: 128,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/InstallButton.js",
-            lineNumber: 66,
+            lineNumber: 123,
             columnNumber: 7
         }, this);
     }
-    if (!isInstallable) {
+    // Jika bisa install (Android/Desktop Chrome)
+    if (isInstallable && deferredPrompt) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].waiting,
-            children: "⏳ Tunggu beberapa detik untuk install..."
-        }, void 0, false, {
+            className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].installContainer,
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].installButton,
+                    onClick: handleInstallClick,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].installIcon,
+                            children: "📲"
+                        }, void 0, false, {
+                            fileName: "[project]/components/InstallButton.js",
+                            lineNumber: 154,
+                            columnNumber: 11
+                        }, this),
+                        "INSTAL APLIKASI CUACA"
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/components/InstallButton.js",
+                    lineNumber: 150,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].helpButton,
+                    onClick: handleManualInstructions,
+                    children: "ℹ️ Cara Install Manual"
+                }, void 0, false, {
+                    fileName: "[project]/components/InstallButton.js",
+                    lineNumber: 157,
+                    columnNumber: 9
+                }, this),
+                showInstructions && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].manualInstructions,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                children: "Cara Install Manual:"
+                            }, void 0, false, {
+                                fileName: "[project]/components/InstallButton.js",
+                                lineNumber: 166,
+                                columnNumber: 16
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/components/InstallButton.js",
+                            lineNumber: 166,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ol", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                    children: 'Klik tombol "INSTAL APLIKASI CUACA" di atas'
+                                }, void 0, false, {
+                                    fileName: "[project]/components/InstallButton.js",
+                                    lineNumber: 168,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                    children: 'Di popup yang muncul, pilih "Install"'
+                                }, void 0, false, {
+                                    fileName: "[project]/components/InstallButton.js",
+                                    lineNumber: 169,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                    children: "Tunggu proses install selesai"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/InstallButton.js",
+                                    lineNumber: 170,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                    children: "Aplikasi akan muncul di desktop/home screen"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/InstallButton.js",
+                                    lineNumber: 171,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/components/InstallButton.js",
+                            lineNumber: 167,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/components/InstallButton.js",
+                    lineNumber: 165,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
             fileName: "[project]/components/InstallButton.js",
-            lineNumber: 79,
+            lineNumber: 149,
             columnNumber: 7
         }, this);
     }
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-        className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].installButton,
-        onClick: handleInstallClick,
-        children: "📲 INSTAL APLIKASI"
-    }, void 0, false, {
+    // Jika belum bisa install (tunggu event)
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].waitingContainer,
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].spinner
+            }, void 0, false, {
+                fileName: "[project]/components/InstallButton.js",
+                lineNumber: 182,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                children: "Menyiapkan instalasi aplikasi..."
+            }, void 0, false, {
+                fileName: "[project]/components/InstallButton.js",
+                lineNumber: 183,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].retryButton,
+                onClick: ()=>window.location.reload(),
+                children: "🔄 Coba Lagi"
+            }, void 0, false, {
+                fileName: "[project]/components/InstallButton.js",
+                lineNumber: 184,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/components/InstallButton.js",
-        lineNumber: 86,
+        lineNumber: 181,
         columnNumber: 5
     }, this);
 }
-_s(InstallButton, "ADy08DquMCFtaZzDo3CZxEXaFiE=");
+_s(InstallButton, "rWXOTQ7ItUqJs0VE/+GxRssXN6Y=");
 _c = InstallButton;
 var _c;
 __turbopack_context__.k.register(_c, "InstallButton");
@@ -1619,7 +1845,7 @@ function Home() {
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InstallButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/app/page.js",
                                     lineNumber: 140,
-                                    columnNumber: 11
+                                    columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/page.js",

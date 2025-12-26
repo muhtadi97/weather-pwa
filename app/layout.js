@@ -54,7 +54,7 @@ export default function RootLayout({ children }) {
               <svg className={styles.logoIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4 4 0 003 15z" />
               </svg>
-              <h1>WeatherID</h1>
+              <h1>CuacaID</h1>
             </div>
             <div className={styles.offlineStatus} id="offlineStatus"></div>
           </header>
