@@ -14,7 +14,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Installing PWA...');
+        console.log('🔄 Installing NEW version:', CACHE_NAME);
         return cache.addAll(urlsToCache);
       })
       .then(() => {
@@ -38,17 +38,20 @@ self.addEventListener('install', event => {
 // Activate Service Worker
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => {
-      console.log('Service Worker activated');
-      return self.clients.claim();
+    Promise.all([
+      self.clients.claim(), // ✅ CLAIM SEMUA CLIENTS
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (cacheName !== CACHE_NAME) {
+              console.log('🗑️ Deleting old cache:', cacheName);
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+    ]).then(() => {
+      console.log('✅ Service Worker v2 activated!');
     })
   );
 });
