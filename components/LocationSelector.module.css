@@ -2,119 +2,403 @@
   position: relative;
   flex: 1;
   max-width: 400px;
-  z-index: 1000;
+  z-index: var(--z-dropdown);
 }
 
+/* Glassmorphism Selector Button */
 .selectorButton {
   width: 100%;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.25rem 1.75rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius);
   color: white;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
   text-align: left;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Border Gradient Effect */
+.selectorButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.4),
+    rgba(16, 185, 129, 0.4)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.selectorButton:hover::before {
+  opacity: 1;
 }
 
 .selectorButton:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.selectorButton:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .selectorButton:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .buttonContent {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
 }
 
+/* Location Icon with Animation */
 .locationIcon {
-  font-size: 1.25rem;
-  margin-right: 0.75rem;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  animation: locationPulse 2s ease-in-out infinite;
+}
+
+@keyframes locationPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.3));
+  }
 }
 
 .selectedCity {
   flex: 1;
   text-align: left;
+  font-weight: 600;
+  background: linear-gradient(90deg, #fff, var(--gray-light));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Animated Arrow */
 .arrow {
-  transition: transform 0.3s ease;
-  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  color: var(--primary-light);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .arrow.open {
-  transform: rotate(180deg);
+  transform: rotate(180deg) scale(1.2);
 }
 
+/* Modern Dropdown with Glass Effect */
 .dropdown {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 0.75rem);
   left: 0;
   right: 0;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius);
-  padding: 0.5rem;
-  z-index: 2000;
-  max-height: 300px;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(30, 41, 59, 0.95) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem;
+  z-index: var(--z-modal);
+  max-height: 400px;
   overflow-y: auto;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
+  animation: dropdownSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
+@keyframes dropdownSlide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar for Dropdown */
+.dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-full);
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--primary), var(--secondary));
+  border-radius: var(--radius-full);
+}
+
+/* Dropdown Items with Hover Effects */
 .dropdownItem {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.25rem;
   background: transparent;
   border: none;
   color: rgba(255, 255, 255, 0.9);
   text-align: left;
   cursor: pointer;
-  border-radius: 6px;
-  transition: var(--transition);
+  border-radius: var(--radius);
+  transition: all var(--transition-fast);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine Effect on Hover */
+.dropdownItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.dropdownItem:hover::before {
+  left: 100%;
 }
 
 .dropdownItem:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  transform: translateX(5px);
+  border-left: 3px solid var(--primary-light);
+  box-shadow: var(--shadow-sm);
 }
 
 .dropdownItem.active {
-  background: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.25) 0%,
+    rgba(16, 185, 129, 0.25) 100%
+  );
+  border-left: 3px solid var(--primary);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.dropdownItem.active .cityName {
+  color: var(--primary-light);
+  font-weight: 700;
+}
+
+.dropdownItem.active .cityCoordinates {
+  color: var(--secondary-light);
 }
 
 .cityName {
   font-weight: 600;
+  font-size: 1rem;
+  transition: color var(--transition-fast);
+  color: white;
 }
 
 .cityCoordinates {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Inter', monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all var(--transition-fast);
 }
 
+.dropdownItem:hover .cityCoordinates {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--primary-light);
+}
+
+/* Loading State */
+.dropdownItem.loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.dropdownItem.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--primary-light);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .locationSelector {
     max-width: 100%;
+    width: 100%;
   }
+
+  .selectorButton {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
   .dropdown {
-    position: fixed; 
+    position: fixed;
     top: auto;
     bottom: 0;
     left: 0;
     right: 0;
-    max-height: 50vh;
-    border-radius: var(--radius) var(--radius) 0 0;
-    z-index: 3000; 
+    max-height: 60vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    z-index: var(--z-modal);
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform: translateY(100%);
+  }
+
+  @keyframes slideUp {
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* Overlay for mobile dropdown */
+  .dropdown::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    animation: fadeIn 0.3s ease forwards;
+  }
+
+  .dropdownItem {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .cityName {
+    font-size: 1.1rem;
+  }
+}
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .locationSelector {
+    max-width: 350px;
+  }
+
+  .selectorButton {
+    padding: 1.1rem 1.6rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .dropdown {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.98) 0%,
+      rgba(30, 41, 59, 0.98) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .selectorButton {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    );
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .selectorButton {
+    border: 2px solid white;
+  }
+
+  .dropdown {
+    border: 2px solid white;
+  }
+
+  .dropdownItem {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .selectorButton,
+  .dropdownItem,
+  .arrow,
+  .locationIcon {
+    transition: none;
+    animation: none;
+  }
+
+  .dropdown {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

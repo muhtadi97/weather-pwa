@@ -1,4 +1,3 @@
-[00:00:02.442] Server  LOG     ✓ Ready in 1514ms
-[00:00:05.972] Browser LOG     ServiceWorker registration successful
-[00:02:29.833] Browser LOG     ServiceWorker registration successful
-[00:02:30.111] Browser LOG     🎯 beforeinstallprompt event fired!
+[00:00:01.922] Server  LOG     ✓ Ready in 1181ms
+[00:00:04.992] Browser LOG     ServiceWorker registration successful
+[00:00:05.265] Browser LOG     🎯 beforeinstallprompt event fired!
