@@ -1,5 +1,5 @@
 // Service Worker untuk PWA Weather App
-const CACHE_NAME = 'weather-pwa-v1';
+const CACHE_NAME = 'weather-pwa-v2';
 const urlsToCache = [
   '/',
   '/offline.html',
